@@ -1,4 +1,7 @@
 package dev.redfox.productlistlokal.presentation.fragments
 
-class ProductDetailsBottomSheet {
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dev.redfox.productlistlokal.data.models.Product
+
+class ProductDetailsBottomSheet(val product: Product): BottomSheetDialogFragment() {
 }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ProductListModel(
     @SerializedName("products")
-    val productListModel: ProductListModel?,
+    val productListModel: List<Product>,
     @SerializedName("total")
     val total: Int?,
     @SerializedName("skip")
