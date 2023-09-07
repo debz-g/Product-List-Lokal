@@ -55,7 +55,7 @@ class ProductListFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                filterList(newText)
+//                filterList(newText)
                 return true
             }
 
@@ -75,28 +75,28 @@ class ProductListFragment : Fragment() {
             productListAdapter.onItemClick = { product ->
                 val dialog = ProductDetailsBottomSheet(product)
                 dialog.isCancelable = true
-                dialog.show(parentFragmentManager, "TAGGENERAL")
+                dialog.show(parentFragmentManager, ProductDetailsBottomSheet.TAG)
             }
         })
     }
 
-    private fun filterList(query: String?){
-        if(query!=null){
-            val filteredList = ArrayList<Product>()
-            for (i in productList){
-                if(i.title.lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT))){
-                    filteredList.add(i)
-                }
-            }
-
-            if(filteredList.isEmpty()){
-                binding.searchRecyclerView.visibility = View.INVISIBLE
-                binding.noData.visibility = View.VISIBLE
-            } else {
-                binding.searchRecyclerView.visibility = View.VISIBLE
-                binding.noData.visibility = View.INVISIBLE
-                productListAdapter.setfilteredList(filteredList)
-            }
-        }
-    }
+//    private fun filterList(query: String?){
+//        if(query!=null){
+//            val filteredList = ArrayList<Product>()
+//            for (i in productList){
+//                if(i.title.lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT))){
+//                    filteredList.add(i)
+//                }
+//            }
+//
+//            if(filteredList.isEmpty()){
+//                binding.searchRecyclerView.visibility = View.INVISIBLE
+//                binding.noData.visibility = View.VISIBLE
+//            } else {
+//                binding.searchRecyclerView.visibility = View.VISIBLE
+//                binding.noData.visibility = View.INVISIBLE
+//                productListAdapter.setfilteredList(filteredList)
+//            }
+//        }
+//    }
 }
