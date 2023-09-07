@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import dev.redfox.productlistlokal.R
 import dev.redfox.productlistlokal.data.models.Product
+import dev.redfox.productlistlokal.data.utils.Snacker
 import dev.redfox.productlistlokal.databinding.FragmentProductListBinding
 import dev.redfox.productlistlokal.presentation.adapters.ProductListAdapter
 import dev.redfox.productlistlokal.presentation.viewmodels.ProductViewModel
@@ -27,9 +28,13 @@ class ProductListFragment : Fragment() {
     //ViewModel
     val productViewModel: ProductViewModel by viewModels()
 
-    var productList = ArrayList<Product>()
+    //To filter search
+//    var productList = ArrayList<Product>()
 
+    //Adapter
     private lateinit var productListAdapter: ProductListAdapter
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,37 +42,35 @@ class ProductListFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentProductListBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         productViewModel.getProducts()
-        initCliks()
+//        initCliks()
         attachObserver()
     }
 
-    private fun initCliks(){
-        binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-//                filterList(newText)
-                return true
-            }
-
-        })
-    }
+//    private fun initCliks(){
+//        binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+////                filterList(newText)
+//                return true
+//            }
+//
+//        })
+//    }
 
     private fun attachObserver(){
         productViewModel.productResponse.observe(viewLifecycleOwner, Observer {
             val productData: MutableList<Product> = it.body()!!.productListModel as MutableList<Product>
 
             productListAdapter = ProductListAdapter(productData)
-            productListAdapter.notifyDataSetChanged()
             binding.searchRecyclerView.setHasFixedSize(true)
             binding.searchRecyclerView.adapter = productListAdapter
             binding.searchRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -91,10 +94,9 @@ class ProductListFragment : Fragment() {
 //
 //            if(filteredList.isEmpty()){
 //                binding.searchRecyclerView.visibility = View.INVISIBLE
-//                binding.noData.visibility = View.VISIBLE
+//                Snacker(requireView(),"No Data Found").error()
 //            } else {
 //                binding.searchRecyclerView.visibility = View.VISIBLE
-//                binding.noData.visibility = View.INVISIBLE
 //                productListAdapter.setfilteredList(filteredList)
 //            }
 //        }
